@@ -1,0 +1,26 @@
+owner-id
+
+
+
+for region in `aws ec2 describe-regions --output text | cut -f4`
+do
+     echo -e "\nListing Instances in region:'$region'..."
+     aws ec2 describe-instances --query "Reservations[*].Instances[*].{IAMProfile:SecurityGroups.GroupName,IP:PublicIpAddress,ID:InstanceId,Type:InstanceType,State:State.Name,Name:Tags[0].Value}" --output=table --region $region
+done
+
+
+for region in `aws ec2 describe-regions --region us-east-1 --output text | cut -f4`
+do
+     echo -e "\nListing Instances in region:'$region'..."
+     aws ec2 describe-instances --region $region
+done
+
+aws iam update-login-profile --user-name hungnq --password Hungnq@0410
+
+aws lightsail get-key-pair \
+    --key-pair-name common-kp
+    
+nano ~/.aws/config
+nano ~/.aws/credentials
+
+https://dev.to/hmintoh/how-to-use-multiple-aws-accounts-with-the-aws-cli-3lge

@@ -1,0 +1,13 @@
+https://stackoverflow.com/questions/16556497/mysql-how-to-reset-or-change-the-mysql-root-password
+
+sudo /etc/init.d/mysql stop
+
+sudo mysqld --skip-grant-tables &
+
+sudo mkdir -v /var/run/mysqld && sudo chown mysql /var/run/mysqld
+    
+mysql -u root mysql
+
+ UPDATE mysql.user SET Password = PASSWORD('YOURNEWPASSWORD') WHERE User = 'root';
+ FLUSH PRIVILEGES;
+ exit;
